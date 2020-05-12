@@ -1,0 +1,13 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+body{
+    margin-bottom: 60px;
+}
+.mat-select-arrow-wrapper,.mat-select-arrow{
+    color: wheat;
+} 
+
+/* html, body { height: 100%; } */
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
