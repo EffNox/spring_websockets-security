@@ -22,6 +22,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
       http.authorizeRequests()
       .antMatchers(HttpMethod.GET, "/cliente", "/cliente/page/**","/cliente/upload/**","/img/**").permitAll()
+      // .antMatchers("/cliente/{id}").permitAll()
+      // .antMatchers("/factura/**").permitAll()
 /*   .antMatchers(HttpMethod.GET, "/cliente/{id}").hasAnyRole("USER","ADMIN")
       .antMatchers(HttpMethod.POST, "/cliente/upload").hasAnyRole("USER","ADMIN")
       .antMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN")
@@ -34,7 +36,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource(){
       CorsConfiguration config = new CorsConfiguration();
       // config.setAllowedOrigins(Arrays.asList("*"));
-      config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+      config.setAllowedOrigins(Arrays.asList("http://localhost:4200","*"));
       // config.setAllowedMethods(Arrays.asList("*"));
       config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
       config.setAllowCredentials(true);

@@ -4,7 +4,7 @@
             <div class="card-header">{{titulo}}: {{cliente.nombre + ' ' + cliente.apellido}}.</div>
             <div class="card-body">
 
-                <div class="container">
+                <div class="container text-center">
                     <div class="row">
                         <div class="col-sm">
                             <ul class="list-group text-dark">
@@ -39,6 +39,35 @@
                             <img *ngIf="cliente?.foto" [src]="'http://localhost:8000/cliente/upload/'+cliente.foto"
                                 [alt]="cliente.nombre" class="w-100 h-75 img-thumbnail">
                         </div>
+                    </div>
+                    <button class="btn btn-sm btn-light btn-sm" *ngIf="_auth.hasPerfil('ROLE_ADMIN')" (click)="cerrarModal()" [routerLink]="['/facturas/form',cliente.id]" >Crear Facturita</button>
+                    <div class="alert alert-info my-4" *ngIf="cliente.facturas.length==0">
+                        No hay facturas asignadas para el cliente {{cliente.nombre}}
+                    </div>
+                    <div class="row" *ngIf="cliente.facturas.length>0">
+                        <table class="table bordered table-striped my-4">
+                            <thead>
+                                <tr>
+                                    <th>Folio</th>
+                                    <th>Descripcion</th>
+                                    <th>Fecha</th>
+                                    <th>Total</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of cliente.facturas">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.descripcion}}</td>
+                                    <td>{{item.createAt|date:'EEEE, MMMM d, y - hh:mm:ss a'}}</td>
+                                    <td>{{item.total}}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" (click)="cerrarModal()" [routerLink]="['/facturas',item.id]">Ver Detalle</button>
+                                        <button class="btn btn-danger btn-sm" (click)="delete(item)" *ngIf="_auth.hasPerfil('ROLE_ADMIN')">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 

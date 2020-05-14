@@ -4,6 +4,7 @@ import { ClienteService } from './cliente.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
+import { environment } from '../../environments/environment.prod';
 
 declare var $;
 @Component({ selector: 'app-clientes', templateUrl: './clientes.component.html' })
@@ -12,7 +13,8 @@ export class ClientesComponent implements OnInit {
   clientes: Cliente[] = [];
   paginator: any;
   clienteSeleccionado: Cliente;
-  constructor(private _svCliente: ClienteService, private actRoute: ActivatedRoute,public _auth:AuthService) { }
+  url = environment.url;
+  constructor(private _svCliente: ClienteService, private actRoute: ActivatedRoute, public _auth: AuthService) { }
 
   ngOnInit(): void {
     this.actRoute.params.subscribe(rs => {
@@ -37,7 +39,7 @@ export class ClientesComponent implements OnInit {
         this._svCliente.delete(cliente.id).subscribe(rs => {
           this.clientes = this.clientes.filter(cli => cli !== cliente);
           Swal.fire('Cliente eliminado', `Cliente ${cliente.nombre} eliminado con éxito!`, 'success');
-        },er=> Swal.fire('Cliente', `${er.error.msj}`, 'warning'));
+        }, er => (er.error != null) ? Swal.fire('Cliente', `${er.error.msj}`, 'warning') : null);
       }
     })
   }

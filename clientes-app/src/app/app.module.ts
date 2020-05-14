@@ -9,11 +9,12 @@ import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormComponent } from './clientes/form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 
 import lc from '@angular/common/locales/es';
@@ -24,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
 import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
+import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
+import { FacturasComponent } from './facturas/facturas.component';
 registerLocaleData(lc, 'es-PE', lcEx);
 
 @NgModule({
@@ -36,7 +39,9 @@ registerLocaleData(lc, 'es-PE', lcEx);
       FormComponent,
       PaginatorComponent,
       DetalleComponent,
-      LoginComponent
+      LoginComponent,
+      DetalleFacturaComponent,
+      FacturasComponent
    ],
    imports: [
       BrowserModule,
@@ -49,7 +54,9 @@ registerLocaleData(lc, 'es-PE', lcEx);
       MatMomentDateModule,
       MatFormFieldModule,
       MatInputModule,
-      MatSelectModule
+      MatSelectModule,
+      MatAutocompleteModule,
+      ReactiveFormsModule,
    ],
    providers: [
       { provide: LOCALE_ID, useValue: 'es-PE' },

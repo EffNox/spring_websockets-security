@@ -8,7 +8,7 @@ import { Region } from './region';
 @Component({ selector: 'app-form', templateUrl: './form.component.html', })
 export class FormComponent implements OnInit {
 
-  cliente: Cliente = new Cliente();
+  public cliente: Cliente = new Cliente();
   regiones: Region[];
   errores: string[];
   constructor(private _svCliente: ClienteService, private route: Router, private actRoute: ActivatedRoute) { }
@@ -20,7 +20,7 @@ export class FormComponent implements OnInit {
 
   cargarCliente() {
     this.actRoute.params.subscribe(rs => {
-      if (rs.id != 'nuevo') this._svCliente.get(rs.id).subscribe(rs => this.cliente = rs,er=> Swal.fire('Cliente', `${er.error.msj}`, 'warning'));
+      if (rs.id != 'nuevo') this._svCliente.get(rs.id).subscribe(rs => this.cliente = rs, er => Swal.fire('Cliente', `${er.error.msj}`, 'warning'));
     });
   }
 
@@ -28,14 +28,15 @@ export class FormComponent implements OnInit {
     this._svCliente.create(this.cliente).subscribe(rs => {
       this.route.navigateByUrl("/clientes");
       Swal.fire('Cliente', `${rs.msj}: ${rs.dt.nombre}`, 'success');
-    }, er =>  this.errores = er);
+    }, er => this.errores = er);
   }
 
   update() {
+    this.cliente.facturas = null;
     this._svCliente.update(this.cliente).subscribe(rs => {
       this.route.navigateByUrl("/clientes");
       Swal.fire('Cliente', `${rs.msj}: ${rs.dt.nombre}`, 'success');
-    }, er =>  this.errores = er);
+    }, er => this.errores = er);
   }
 
   compararRegion(o1: Region, o2: Region) {

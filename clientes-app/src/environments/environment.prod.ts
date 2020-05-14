@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  url: 'https://spring-boot-curso2.herokuapp.com'
 };

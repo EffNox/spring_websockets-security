@@ -5,15 +5,17 @@ import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { AuthService } from '../../usuarios/auth.service';
-
-@Component({ selector: 'app-detalle', templateUrl: './detalle.component.html', styleUrls: ['./detalle.component.css'] })
+import { FacturaService } from '../../facturas/services/factura.service';
+import { Factura } from '../../facturas/models/factura';
+declare var $;
+@Component({ selector: 'app-detalle', templateUrl: './detalle.component.html' })
 export class DetalleComponent implements OnInit {
 
   @Input() cliente: Cliente;
   titulo: string = 'Detalle del Cliente';
   selectFile: File;
   progreso: number = 0;
-  constructor(private _svCliente: ClienteService, private actRoute: ActivatedRoute,public _auth:AuthService) { }
+  constructor(private _svCliente: ClienteService, public _auth: AuthService,public _svFac:FacturaService) { }
 
   ngOnInit(): void {
     // this.actRoute.snapshot.paramMap.get('id');
@@ -48,6 +50,26 @@ export class DetalleComponent implements OnInit {
       }
     })
   }
+  cerrarModal() {
+    $('#mdCliente').modal('hide');
+  }
 
-
+  delete(factura: Factura) {
+    Swal.fire({
+      title: 'Está seguro?',
+      text: `Seguro que desea eliminar la factura [${factura.descripcion}] del cliente ${this.cliente.nombre}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        this._svFac.delete(factura.id).subscribe(rs => {
+          this.cliente.facturas = this.cliente.facturas.filter(f => f !== factura);
+          Swal.fire('Eliminado', `Factura ${factura.descripcion} eliminada con éxito!`, 'success');
+        },er=> Swal.fire('Error', `${er.error.msj}`, 'warning'));
+      }
+    })
+  }
 }

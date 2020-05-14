@@ -29,3 +29,23 @@ INSERT INTO `perfil` (nombre) VALUES ('ROLE_ADMIN');
 INSERT INTO `usuario_perfil` (usuario_id, perfil_id) VALUES (1, 1);
 INSERT INTO `usuario_perfil` (usuario_id, perfil_id) VALUES (2, 2);
 INSERT INTO `usuario_perfil` (usuario_id, perfil_id) VALUES (2, 1);
+
+
+INSERT INTO producto (nombre, precio) VALUES ('Panasonic Pantalla LCD', 1500);
+INSERT INTO producto (nombre, precio) VALUES('Sony Camara digital DSC-W320B', 125);
+INSERT INTO producto (nombre, precio) VALUES('Apple iPod shuffle', 500);
+INSERT INTO producto (nombre, precio) VALUES('Sony Notebook Z110', 2500);
+INSERT INTO producto (nombre, precio) VALUES('Hewlett Packard Multifuncional F2280', 700);
+INSERT INTO producto (nombre, precio) VALUES('Bianchi Bicicleta Aro 26', 1100);
+INSERT INTO producto (nombre, precio) VALUES('Mica Comoda 5 Cajones', 780);
+
+
+INSERT INTO factura (descripcion, observacion, cliente_id) VALUES('Factura equipos de oficina', null, 1);
+
+INSERT INTO item_factura (cantidad, factura_id, producto_id) VALUES(1, 1, 1);
+INSERT INTO item_factura (cantidad, factura_id, producto_id) VALUES(2, 1, 4);
+INSERT INTO item_factura (cantidad, factura_id, producto_id) VALUES(1, 1, 5);
+INSERT INTO item_factura (cantidad, factura_id, producto_id) VALUES(1, 1, 7);
+
+INSERT INTO factura (descripcion, observacion, cliente_id) VALUES('Factura Bicicleta', 'Alguna nota importante!', 1);
+INSERT INTO item_factura (cantidad, factura_id, producto_id) VALUES(3, 2, 6);

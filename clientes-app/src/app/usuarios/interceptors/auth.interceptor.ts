@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private _auth: AuthService,private router:Router) { }
+  constructor(private _auth: AuthService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(this.manejarError));
@@ -17,11 +17,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
   manejarError(e: HttpErrorResponse) {
 
-    if (e.status == 401) {
-      // Swal.fire('Debe iniciar sesión: ' + e.status, `Usted debe iniciar sesión para poder acceder a este recurso`, 'warning');
-      if (this._auth.isAuthenticated()) {
-        this._auth.logOut();
-      }
+    if (e.status === 401) {
+       Swal.fire('Debe iniciar sesión: ' + e.status, `Usted debe iniciar sesión para poder acceder a este recurso`, 'warning');
+       return throwError('');
+      // if (this._auth.isAuthenticated()) {
+      //   this._auth.logOut();
+      // }
     }
     if (e.status === 403) {
       Swal.fire('Acceso denegado: ' + e.status, `Usted no tiene acceso a este recurso.`, 'warning');

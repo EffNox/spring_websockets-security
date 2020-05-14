@@ -19,11 +19,11 @@
             <tbody>
                 <tr *ngFor="let cliente of clientes">
                     <!-- <td><button class=" btn btn-sm btn-primary" [routerLink]="['/clientes/ver',cliente.id]">{{cliente.id}}</button> </td> -->
-                    <td *ngIf="_auth.hasPerfil('ROLE_USER')">
-                        <img *ngIf="cliente?.foto" [src]="'http://localhost:8000/cliente/upload/'+cliente.foto"
+                    <td  *ngIf="_auth.hasPerfil('ROLE_USER')">
+                        <img *ngIf="cliente?.foto" [src]="url+'/cliente/upload/'+cliente.foto"
                             (click)="abrirModal(cliente)" [alt]="cliente.nombre"
                             style="width: 50px;height: 50px;cursor: pointer;">
-                        <img *ngIf="!cliente?.foto" [src]="'http://localhost:8000/img/no-u.jpg'"
+                        <img *ngIf="!cliente?.foto" [src]="url+'/img/no-u.jpg'"
                             (click)="abrirModal(cliente)" alt="Sin foto"
                             style="width: 50px;height: 50px;cursor: pointer;">
                     </td>
@@ -32,8 +32,8 @@
                     <td>{{cliente.email}}</td>
                     <td>{{cliente.createAt|date:'fullDate'}}</td>
                     <td *ngIf="_auth.hasPerfil('ROLE_ADMIN')">
-                        <button class="btn btn-sm btn-primary mr-2"
-                            [routerLink]="['/clientes/form',cliente.id]">Editar</button>
+                        <button class="btn btn-sm btn-light" [routerLink]="['/facturas/form',cliente.id]" >Crear Facturita</button>
+                        <button class="btn btn-sm btn-primary mr-2" [routerLink]="['/clientes/form',cliente.id]">Editar</button>
                         <button class="btn btn-sm btn-danger" (click)="delete(cliente)">Eliminar</button>
                     </td>
                 </tr>

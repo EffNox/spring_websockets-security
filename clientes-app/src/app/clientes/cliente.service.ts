@@ -5,11 +5,12 @@ import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { Region } from "./region";
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({ providedIn: "root" })
 export class ClienteService {
 
-  private url = "http://localhost:8000/cliente";
+  private url = environment.url + '/cliente';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -48,11 +49,7 @@ export class ClienteService {
   }
 
   delete(id: number) {
-    return this.http.delete<Cliente>(`${this.url}/${id}`).pipe(
-      catchError((e) => {
-        return throwError(e);
-      })
-    );
+    return this.http.delete<Cliente>(`${this.url}/${id}`)/* .pipe(catchError((e) => throwError(e))) */;
   }
 
   uploadFile(file: File, id: string) {

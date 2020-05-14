@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200"/* , methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE } */)
+@CrossOrigin(origins = "*"/* , methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE } */)
 public @RequestMapping("/cliente") class CCliente {
 
     private @Autowired IClienteService sv;
