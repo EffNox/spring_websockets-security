@@ -1,0 +1,42 @@
+<div class="container text-center p-4">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-pills card-header-pills right float-right">
+                <li class="nav-item">
+                    <span *ngIf="conectado" class="badge badge-pill badge-success"><h6>Conectado</h6></span>
+                    <span *ngIf="!conectado" class="badge badge-pill badge-danger"><h6>Desconectado</h6></span>
+                </li>
+            </ul>
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item mr-2">
+                    <input type="text" *ngIf="!conectado" class="form-control form-control-sm" [(ngModel)]="msj.username" placeholder="Nombre">
+                </li>
+                <li class="nav-item mr-2">
+                    <button type="button" *ngIf="!conectado" [disabled]="!msj.username||msj.username.length<5" class="btn btn-success btn-sm" (click)="connect()">Conectar Chat</button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" *ngIf="conectado" class="btn btn-danger btn-sm" (click)="disconnect()">Cerrar Chat</button>
+                </li>
+            </ul>
+        </div>
+        <div style="overflow-y: auto; height: 360px; width: 100%; overflow-x: hidden;" #scrollChat [scrollTop]="scrolltop" class="card-body" *ngIf="conectado">
+            
+            <ul class="list-group list-group-flush float-left text-left">
+                <li class="list-group-item list-group-item-light mb-2" style="width: 100vw;" *ngFor="let msj of msjs">
+                    <span *ngIf="msj.tipo=='NEW_USER'"><small>{{msj.fecha|date:'shortTime'}}: </small><span [class]="'badge badge-pill '+msj.color">@{{msj.username}}: {{msj.texto}}</span></span>
+                    <span *ngIf="msj.tipo=='NEW_MSJ'"><small>{{msj.fecha|date:'shortTime'}}: </small><span [class]="'badge badge-pill '+msj.color">@{{msj.username}}:</span>  <span class="h5">{{msj.texto}}</span></span>
+                </li>
+            </ul>
+            
+        </div>
+        <div class="card-footer" *ngIf="conectado">
+            <form class="form-inline">
+                <div class="form-group mx-2">
+                    <input type="text" class="form-control" placeholder="Escribir mensaje..." [(ngModel)]="msj.texto" name="texto" (keyup)="escribiendo()">
+                </div>
+                <button type="submit" class="btn btn-primary" (click)="sendMessage()" [disabled]="msj.texto.length<4">Enviar</button>
+            </form>
+            <span class="text-muted">{{escribiendos}}</span>
+        </div>
+    </div>
+</div>
